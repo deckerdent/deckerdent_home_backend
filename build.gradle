@@ -1,0 +1,63 @@
+plugins {
+    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("io.micronaut.application") version "3.4.1"
+}
+
+version = "0.1"
+group = "site.server"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //annotationProcessor("io.micronaut.data:micronaut-data-processor")
+    annotationProcessor("io.micronaut.data:micronaut-data-hibernate-jpa")
+    annotationProcessor("io.micronaut:micronaut-http-validation")
+    //annotationProcessor("io.micronaut.openapi:micronaut-openapi")
+    implementation("io.micronaut.graphql:micronaut-graphql:1.0.0.RC2")
+    implementation("io.leangen.graphql:spqr:0.9.9")
+    annotationProcessor("io.micronaut.security:micronaut-security-annotations")
+    implementation("io.micronaut:micronaut-http-client")
+    implementation("io.micronaut:micronaut-jackson-databind")
+    implementation("io.micronaut.sql:micronaut-hibernate-jpa")
+    //implementation("io.micronaut.data:micronaut-data-jdbc")
+    implementation("io.micronaut.email:micronaut-email-template")
+    implementation("io.micronaut.security:micronaut-security")
+    implementation("io.micronaut.security:micronaut-security-jwt")
+    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
+    implementation("io.micronaut.views:micronaut-views-velocity")
+    implementation("io.swagger.core.v3:swagger-annotations")
+    implementation("jakarta.annotation:jakarta.annotation-api")
+    implementation("jakarta.persistence:jakarta.persistence-api:2.2.3")
+    //implementation('org.slf4j:slf4j-api:2.0.3')
+    runtimeOnly("ch.qos.logback:logback-classic")
+    runtimeOnly("com.h2database:h2")
+    //runtimeOnly("ch.qos.logback:logback-core")
+    //compileOnly("org.graalvm.nativeimage:svm")
+
+    implementation("io.micronaut:micronaut-validation")
+
+}
+
+
+application {
+    mainClass.set("site.server.Application")
+}
+java {
+    sourceCompatibility = JavaVersion.toVersion("17")
+    targetCompatibility = JavaVersion.toVersion("17")
+}
+
+//graalvmNative.toolchainDetection = false
+micronaut {
+    runtime("netty")
+    testRuntime("junit5")
+    processing {
+        incremental(true)
+        annotations("site.server.*")
+    }
+}
+
+
+
